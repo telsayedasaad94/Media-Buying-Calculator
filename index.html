@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Media Buying Calculator</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="logo">
+                <span class="logo-text">Media Buying</span>
+                <span class="logo-accent">Calculator</span>
+            </div>
+            <div class="header-buttons">
+                <button class="btn-theme" id="themeToggle">🌙</button>
+                <button class="btn-reset" onclick="resetCalculator()">Reset</button>
+                <button class="btn-export" onclick="exportData()">Export</button>
+            </div>
+        </header>
+
+        <!-- Navigation Tabs -->
+        <nav class="tabs">
+            <button class="tab-btn active" data-tab="basic">Basic Calculator</button>
+            <button class="tab-btn" data-tab="advanced">Advanced Analysis</button>
+            <button class="tab-btn" data-tab="budget">Budget Planning</button>
+            <button class="tab-btn" data-tab="performance">Performance Metrics</button>
+        </nav>
+
+        <!-- Tab 1: Basic Calculator -->
+        <section id="basic" class="tab-content active">
+            <div class="section-title">Basic Media Buying Calculator</div>
+            
+            <div class="calculator-grid">
+                <!-- Left Column -->
+                <div class="calc-column">
+                    <div class="input-group">
+                        <label>Total Budget (EGP)</label>
+                        <input type="number" id="totalBudget" class="input-field" placeholder="Enter budget" value="50000" onchange="calculateMetrics()">
+                    </div>
+
+                    <div class="input-group">
+                        <label>Cost Per Impression (CPM)</label>
+                        <input type="number" id="cpm" class="input-field" placeholder="Enter CPM" value="5" onchange="calculateMetrics()">
+                    </div>
+
+                    <div class="input-group">
+                        <label>Click Through Rate (%)</label>
+                        <input type="number" id="ctr" class="input-field" placeholder="Enter CTR" value="2.5" onchange="calculateMetrics()">
+                    </div>
+
+                    <div class="input-group">
+                        <label>Conversion Rate (%)</label>
+                        <input type="number" id="conversionRate" class="input-field" placeholder="Enter conversion rate" value="3.5" onchange="calculateMetrics()">
+                    </div>
+
+                    <div class="input-group">
+                        <label>Average Order Value (EGP)</label>
+                        <input type="number" id="aov" class="input-field" placeholder="Enter AOV" value="500" onchange="calculateMetrics()">
+                    </div>
+                </div>
+
+                <!-- Right Column -->
+                <div class="calc-column">
+                    <div class="result-box">
+                        <div class="result-label">Total Impressions</div>
+                        <div class="result-value" id="impressions">0</div>
+                        <div class="result-unit">impressions</div>
+                    </div>
+
+                    <div class="result-box">
+                        <div class="result-label">Total Clicks</div>
+                        <div class="result-value" id="clicks">0</div>
+                        <div class="result-unit">clicks</div>
+                    </div>
+
+                    <div class="result-box">
+                        <div class="result-label">Conversions</div>
+                        <div class="result-value" id="conversions">0</div>
+                        <div class="result-unit">conversions</div>
+                    </div>
+
+                    <div class="result-box">
+                        <div class="result-label">Total Revenue</div>
+                        <div class="result-value accent" id="revenue">0 EGP</div>
+                        <div class="result-unit">generated</div>
+                    </div>
+
+                    <div class="result-box">
+                        <div class="result-label">ROI</div>
+                        <div class="result-value success" id="roi">0%</div>
+                        <div class="result-unit">return on investment</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Key Metrics Section -->
+            <div class="metrics-section">
+                <div class="section-title">Key Metrics</div>
+                <div class="metrics-grid">
+                    <div class="metric-card">
+                        <div class="metric-label">Cost Per Click (CPC)</div>
+                        <div class="metric-value" id="cpc">0 EGP</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-label">Cost Per Conversion (CPA)</div>
+                        <div class="metric-value" id="cpa">0 EGP</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-label">Cost Per Sale</div>
+                        <div class="metric-value" id="costPerSale">0 EGP</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-label">ROAS</div>
+                        <div class="metric-value" id="roas">0x</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tab 2: Advanced Analysis -->
+        <section id="advanced" class="tab-content">
+            <div class="section-title">Advanced Analysis</div>
+            
+            <div class="analysis-grid">
+                <div class="analysis-column">
+                    <div class="input-group">
+                        <label>Platform/Channel</label>
+                        <select id="platform" class="input-field" onchange="calculateAdvanced()">
+                            <option value="facebook">Facebook</option>
+                            <option value="google">Google Ads</option>
+                            <option value="tiktok">TikTok</option>
+                            <option value="instagram">Instagram</option>
+                            <option value="linkedin">LinkedIn</option>
+                        </select>
+                    </div>
+
+                    <div class="input-group">
+                        <label>Campaign Duration (days)</label>
+                        <input type="number" id="duration" class="input-field" placeholder="Enter duration" value="30" onchange="calculateAdvanced()">
+                    </div>
+
+                    <div class="input-group">
+                        <label>Daily Budget (EGP)</label>
+                        <input type="number" id="dailyBudget" class="input-field" placeholder="Enter daily budget" value="1500" onchange="calculateAdvanced()">
+                    </div>
+
+                    <div class="input-group">
+                        <label>Expected Reach</label>
+                        <input type="number" id="reach" class="input-field" placeholder="Enter reach" value="100000" onchange="calculateAdvanced()">
+                    </div>
+                </div>
+
+                <div class="analysis-column">
+                    <div class="result-box">
+                        <div class="result-label">Frequency</div>
+                        <div class="result-value" id="frequency">0</div>
+                    </div>
+
+                    <div class="result-box">
+                        <div class="result-label">CPM (Effective)</div>
+                        <div class="result-value" id="effectiveCPM">0 EGP</div>
+                    </div>
+
+                    <div class="result-box">
+                        <div class="result-label">Engagement Rate</div>
+                        <div class="result-value" id="engagementRate">0%</div>
+                    </div>
+
+                    <div class="result-box">
+                        <div class="result-label">Breakeven Point</div>
+                        <div class="result-value" id="breakeven">0 sales</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Chart Section -->
+            <div class="chart-section">
+                <div class="section-title">Performance Trend</div>
+                <canvas id="performanceChart"></canvas>
+            </div>
+        </section>
+
+        <!-- Tab 3: Budget Planning -->
+        <section id="budget" class="tab-content">
+            <div class="section-title">Budget Planning & Allocation</div>
+            
+            <div class="budget-input-group">
+                <div class="input-group">
+                    <label>Total Marketing Budget (EGP)</label>
+                    <input type="number" id="marketingBudget" class="input-field" placeholder="Enter budget" value="100000" onchange="calculateBudgetAllocation()">
+                </div>
+            </div>
+
+            <div class="channel-allocation">
+                <div class="section-subtitle">Channel Budget Allocation</div>
+                <div class="allocation-grid">
+                    <div class="allocation-item">
+                        <label>Facebook (%)</label>
+                        <input type="number" id="facebookAlloc" class="input-field" value="35" min="0" max="100" onchange="calculateBudgetAllocation()">
+                        <div class="allocated-value" id="facebookVal">0 EGP</div>
+                    </div>
+                    <div class="allocation-item">
+                        <label>Google (%)</label>
+                        <input type="number" id="googleAlloc" class="input-field" value="30" min="0" max="100" onchange="calculateBudgetAllocation()">
+                        <div class="allocated-value" id="googleVal">0 EGP</div>
+                    </div>
+                    <div class="allocation-item">
+                        <label>TikTok (%)</label>
+                        <input type="number" id="tiktokAlloc" class="input-field" value="20" min="0" max="100" onchange="calculateBudgetAllocation()">
+                        <div class="allocated-value" id="tiktokVal">0 EGP</div>
+                    </div>
+                    <div class="allocation-item">
+                        <label>Other (%)</label>
+                        <input type="number" id="otherAlloc" class="input-field" value="15" min="0" max="100" onchange="calculateBudgetAllocation()">
+                        <div class="allocated-value" id="otherVal">0 EGP</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Budget Breakdown Tables -->
+            <div class="budget-tables">
+                <div class="section-subtitle">Daily Budget Breakdown</div>
+                <table class="budget-table">
+                    <thead>
+                        <tr>
+                            <th>Day</th>
+                            <th>Facebook</th>
+                            <th>Google</th>
+                            <th>TikTok</th>
+                            <th>Other</th>
+                            <th>Total</th>
+                        </tr>
+                    </thead>
+                    <tbody id="dailyBreakdown"></tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Tab 4: Performance Metrics -->
+        <section id="performance" class="tab-content">
+            <div class="section-title">Performance Metrics Dashboard</div>
+            
+            <div class="performance-controls">
+                <div class="input-group">
+                    <label>Number of Weeks</label>
+                    <select id="weeksCount" onchange="generatePerformanceData()">
+                        <option value="4">4 Weeks</option>
+                        <option value="8" selected>8 Weeks</option>
+                        <option value="12">12 Weeks</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Weekly Performance Data -->
+            <div class="performance-section">
+                <div class="section-subtitle">Weekly Metrics</div>
+                <table class="performance-table">
+                    <thead>
+                        <tr>
+                            <th>Week</th>
+                            <th>Impressions</th>
+                            <th>Clicks</th>
+                            <th>CTR</th>
+                            <th>Conversions</th>
+                            <th>Conv. Rate</th>
+                            <th>Spend</th>
+                            <th>Revenue</th>
+                            <th>ROAS</th>
+                        </tr>
+                    </thead>
+                    <tbody id="weeklyData"></tbody>
+                </table>
+            </div>
+
+            <!-- Daily Performance Data -->
+            <div class="performance-section">
+                <div class="section-subtitle">Daily Performance (Week 1)</div>
+                <table class="performance-table">
+                    <thead>
+                        <tr>
+                            <th>Day</th>
+                            <th>Impressions</th>
+                            <th>Clicks</th>
+                            <th>Spend</th>
+                            <th>Revenue</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody id="dailyData"></tbody>
+                </table>
+            </div>
+
+            <!-- Campaign Comparison -->
+            <div class="performance-section">
+                <div class="section-subtitle">Campaign Comparison</div>
+                <table class="performance-table">
+                    <thead>
+                        <tr>
+                            <th>Campaign</th>
+                            <th>Budget</th>
+                            <th>Impressions</th>
+                            <th>Clicks</th>
+                            <th>Conversions</th>
+                            <th>Revenue</th>
+                            <th>ROAS</th>
+                        </tr>
+                    </thead>
+                    <tbody id="campaignComparison"></tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>Media Buying Calculator v1.0 | © 2026 All Rights Reserved</p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
