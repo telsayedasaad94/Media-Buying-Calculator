@@ -38,12 +38,11 @@ html, body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 25px 0;
+    padding: 20px 25px;
     border-bottom: 2px solid var(--border-color);
     margin-bottom: 25px;
     background: linear-gradient(135deg, rgba(0,255,136,0.05) 0%, rgba(0,255,255,0.02) 100%);
     border-radius: 8px;
-    padding: 20px 25px;
 }
 
 .logo {
@@ -183,12 +182,11 @@ html, body {
 .section-subtitle {
     font-size: 15px;
     font-weight: 700;
-    color: var(--text-primary);
+    color: var(--primary-color);
     margin-bottom: 20px;
     margin-top: 25px;
     text-transform: uppercase;
     letter-spacing: 0.5px;
-    color: var(--primary-color);
 }
 
 /* Input Group */
@@ -451,8 +449,6 @@ td {
 
 tbody tr:hover {
     background-color: rgba(0, 255, 136, 0.08);
-    border-left: 3px solid var(--primary-color);
-    padding-left: 13px;
 }
 
 tbody tr:last-child td {
@@ -519,6 +515,24 @@ tbody tr:last-child td {
     }
     
     .logo {
+        font-size: 24px;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        padding: 10px;
+    }
+    
+    .logo {
+        font-size: 18px;
+    }
+    
+    .section-title {
+        font-size: 16px;
+    }
+    
+    .result-value {
         font-size: 24px;
     }
 }
